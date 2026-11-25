@@ -1,5 +1,11 @@
 {
-  "repos": 23,
+  "repos": 12,
+  "contributed": 8,
   "stars": 0,
-  "followers": 1
+  "followers": 1,
+  "commits": 183,
+  "loc_add": 66306,
+  "loc_del": 13071,
+  "loc_total": 53235,
+  "updated_at": "2026-11-25T07:57:13Z"
 }
