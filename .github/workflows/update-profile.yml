@@ -1,0 +1,65 @@
+# Keeps the profile README fresh: redraws the cards and the contribution snake
+# every day, and whenever you push a change to your info, photo or the scripts.
+name: Update profile card
+
+on:
+  schedule:
+    - cron: "37 13 * * *" # every day, just after midnight in Adelaide
+  workflow_dispatch: # "Run workflow" button in the Actions tab
+  push:
+    paths:
+      - "profile/config.toml"
+      - "profile/photo.*"
+      - "scripts/**"
+      - ".github/workflows/update-profile.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-card-${{ github.ref }}
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Redraw ASCII portrait (skipped on the daily run)
+        if: github.event_name != 'schedule'
+        run: |
+          pip install -r scripts/requirements.txt
+          python scripts/make_ascii.py
+
+      - name: Fetch GitHub stats
+        env:
+          # Optional: add a personal token as the secret ACCESS_TOKEN to include private repos.
+          GH_TOKEN: ${{ secrets.ACCESS_TOKEN || secrets.GITHUB_TOKEN }}
+        run: python scripts/fetch_stats.py
+
+      - name: Build cards
+        run: python scripts/build_card.py
+
+      - name: Draw contribution snake
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            assets/snake_light.svg?color_snake=#953800
+            assets/snake_dark.svg?palette=github-dark&color_snake=#ffa657
+
+      - name: Commit if something changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/ profile/
+          if git diff --cached --quiet; then
+            echo "Card is already up to date."
+            exit 0
+          fi
+          git commit -m "Update profile card"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

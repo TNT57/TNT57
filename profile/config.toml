@@ -1,0 +1,66 @@
+# ─────────────────────────────────────────────────────────────
+#  Your GitHub profile card. Edit this file, commit, and push:
+#  a GitHub Action rebuilds dark_mode.svg + light_mode.svg for you.
+#
+#  Each row is ["Key", "Value"]. The dots in between are added
+#  automatically so every line ends at the same place.
+#  Special values: {uptime} = time since `uptime_since`.
+# ─────────────────────────────────────────────────────────────
+
+username = "TNT57"          # GitHub login used for the live stats
+uptime_since = "2023-09-06" # the day you joined GitHub (or put your birthday)
+width = 62                  # characters per line on the right side
+exclude_languages = []      # e.g. ["Jupyter Notebook", "HTML"] to hide them from Top Languages
+
+[ascii]
+photo = "profile/photo.jpg"
+cols = 48                   # how many characters wide the portrait is
+font_size = 13              # smaller font = more detail in the same space
+line_height = 15
+crop = [72, 6, 328, 400]    # left, top, right, bottom of the photo (pixels)
+sharpen = 3.0               # makes eyes / mouth stand out (0 = off)
+equalize = 0.25             # 0..1, spreads brightness over all characters
+gamma = 1.15                # < 1 = brighter face, > 1 = darker face
+low_pct = 3
+high_pct = 99
+bg_tolerance = 30           # how much grey counts as "background"
+
+[[group]]
+title = "nathan@tnt57"
+rows = [
+  ["Name", "Nathan (Nam Trung) Tran"],
+  ["Location", "Adelaide, South Australia"],
+  ["Uptime", "{uptime}"],
+  ["Degree", "B. Computer Science (AI major), UofA"],
+  ["Role", "Graduate AI Engineer / Software Engineer"],
+  ["Status", "Open to graduate AI Engineer & SWE roles"],
+]
+
+[[group]]
+rows = [
+  ["Languages.Programming", "Python, TypeScript, C++, C"],
+  ["Languages.Web", "JavaScript, React, Next.js, HTML/CSS"],
+  ["Languages.Real", "Vietnamese, English"],
+]
+
+[[group]]
+rows = [
+  ["AI.Focus", "LLMs, RAG, NLP, Machine Learning"],
+  ["Experience", "AI Engineer Intern @ Viettel Solutions"],
+  ["Hobbies.Sports", "Basketball, Soccer"],
+  ["Hobbies.Music", "Piano, Guitar, Drums"],
+  ["Hobbies.Gaming", "League of Legends, Honor of Kings"],
+]
+
+[[group]]
+title = "Contact"
+rows = [
+  ["Email", "trung.tn05@gmail.com"],
+  ["LinkedIn", "in/nathan-tran-8e38e6"],
+  ["Website", "tnt-website-jet.vercel.app"],
+]
+
+# The GitHub Stats block is filled in automatically from profile/stats.json.
+[[group]]
+title = "GitHub Stats"
+stats = true
