@@ -57,9 +57,11 @@ def render_activity(theme: dict, stats: dict, width: int) -> str:
     if not langs:
         out.append(f'<rect x="{left_x}" y="{bar_y}" width="{col_w:.1f}" height="{bar_h}" class="cc"/>')
     x = left_x
-    for lang in langs:
+    for i, lang in enumerate(langs):
         w = col_w * lang["pct"] / 100
         out.append(f'<rect x="{x:.1f}" y="{bar_y}" width="{w + 0.5:.1f}" height="{bar_h}" fill="{lang["color"]}"/>')
+        if i:  # thin gap so similar colours (e.g. two blues) stay apart
+            out.append(f'<rect x="{x - 1:.1f}" y="{bar_y}" width="2" height="{bar_h}" fill="{theme["bg"]}"/>')
         x += w
     out.append("</g>")
 
