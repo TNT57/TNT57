@@ -1,11 +1,108 @@
 {
   "repos": 12,
-  "contributed": 8,
+  "contributed": 9,
   "stars": 0,
   "followers": 1,
   "commits": 183,
   "loc_add": 66306,
   "loc_del": 13071,
   "loc_total": 53235,
-  "updated_at": "2026-11-25T07:57:13Z"
+  "languages": [
+    {
+      "name": "TypeScript",
+      "color": "#3178c6",
+      "pct": 40.2
+    },
+    {
+      "name": "Python",
+      "color": "#3572A5",
+      "pct": 39.5
+    },
+    {
+      "name": "C++",
+      "color": "#f34b7d",
+      "pct": 14.3
+    },
+    {
+      "name": "CSS",
+      "color": "#663399",
+      "pct": 2.3
+    },
+    {
+      "name": "JavaScript",
+      "color": "#f1e05a",
+      "pct": 1.6
+    },
+    {
+      "name": "Other",
+      "color": "#8b949e",
+      "pct": 2.1
+    }
+  ],
+  "contrib": {
+    "total": 802,
+    "this_year": 348,
+    "since": "2023-09-06",
+    "current_streak": 4,
+    "current_start": "2026-11-25",
+    "current_end": "2026-11-28",
+    "longest_streak": 71,
+    "longest_start": "2026-09-13",
+    "longest_end": "2026-11-22",
+    "weeks": [
+      7,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      5,
+      0,
+      0,
+      0,
+      0,
+      5,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      16,
+      13,
+      2,
+      23,
+      23,
+      35,
+      46,
+      59,
+      20,
+      8,
+      7,
+      7,
+      8,
+      10,
+      8,
+      14,
+      18,
+      13,
+      7
+    ]
+  },
+  "updated_at": "2026-11-28T05:42:14Z"
 }
