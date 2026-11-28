@@ -2,7 +2,8 @@
 
 Inputs:  profile/config.toml (your info), profile/ascii_{dark,light}.txt (portrait),
          profile/stats.json (numbers from fetch_stats.py)
-Outputs: dark_mode.svg, light_mode.svg in the repo root.
+Outputs (in assets/): card_dark.svg, card_light.svg       - the neofetch card
+                     activity_dark.svg, activity_light.svg - languages + streaks
 """
 
 import calendar
@@ -12,6 +13,8 @@ import tomllib
 from datetime import date, datetime, timezone
 from pathlib import Path
 from xml.sax.saxutils import escape
+
+from activity_card import render_activity
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -124,12 +127,17 @@ def build_lines(cfg: dict, stats: dict, today: date):
 
 
 # ── SVG ────────────────────────────────────────────────────────────────────
+def layout(art: list[str], cfg: dict) -> tuple[float, int]:
+    """(x where the text column starts, total card width) in pixels."""
+    art_w = max(map(len, art)) * 0.6 * cfg["ascii"].get("font_size", FONT_SIZE)
+    text_x = PAD + art_w + GAP * CHAR_W
+    return text_x, round(text_x + cfg.get("width", 60) * CHAR_W + PAD)
+
+
 def render_svg(theme: dict, art: list[str], lines, cfg: dict) -> str:
     art_font = cfg["ascii"].get("font_size", FONT_SIZE)
     art_line = cfg["ascii"].get("line_height", LINE_H)
-    art_w = max(map(len, art)) * 0.6 * art_font
-    text_x = PAD + art_w + GAP * CHAR_W
-    width_px = round(text_x + cfg.get("width", 60) * CHAR_W + PAD)
+    text_x, width_px = layout(art, cfg)
     art_h = len(art) * art_line
     text_h = (len(lines) + 2) * LINE_H  # +2 = blank + prompt line
     height_px = round(PAD * 2 + max(art_h, text_h))
@@ -182,12 +190,16 @@ def main() -> None:
     today = datetime.now(timezone.utc).date()
 
     lines = build_lines(cfg, stats, today)
+    assets = ROOT / "assets"
+    assets.mkdir(exist_ok=True)
     for name, theme in THEMES.items():
         art = (ROOT / "profile" / f"ascii_{name}.txt").read_text(encoding="utf-8").rstrip("\n").split("\n")
-        (ROOT / f"{name}_mode.svg").write_text(render_svg(theme, art, lines, cfg), encoding="utf-8")
+        (assets / f"card_{name}.svg").write_text(render_svg(theme, art, lines, cfg), encoding="utf-8")
+        width = layout(art, cfg)[1]  # same width as the main card so they line up
+        (assets / f"activity_{name}.svg").write_text(render_activity(theme, stats, width), encoding="utf-8")
     for segs in lines:
         print("".join(t for t, _ in segs))
-    print("\nwrote dark_mode.svg + light_mode.svg")
+    print("\nwrote assets/card_{dark,light}.svg + assets/activity_{dark,light}.svg")
 
 
 if __name__ == "__main__":

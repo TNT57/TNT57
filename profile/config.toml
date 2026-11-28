@@ -10,6 +10,7 @@
 username = "TNT57"          # GitHub login used for the live stats
 uptime_since = "2023-09-06" # the day you joined GitHub (or put your birthday)
 width = 62                  # characters per line on the right side
+exclude_languages = []      # e.g. ["Jupyter Notebook", "HTML"] to hide them from Top Languages
 
 [ascii]
 photo = "profile/photo.jpg"
